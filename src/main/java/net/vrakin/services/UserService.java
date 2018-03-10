@@ -24,4 +24,9 @@ public class UserService implements ParentService<User, Long> {
         return this.userRepository;
     }
 
+    public User findByFirstNameAndLastName(String firstName, String lastName){
+        return userRepository.findByFirstNameAndLastName(firstName.toUpperCase(),
+                lastName.toUpperCase());
+    }
+
 }

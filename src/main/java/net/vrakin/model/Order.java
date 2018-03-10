@@ -6,13 +6,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ORDERS")
-@NamedQuery(name = "Order.findBusyOrders",
-query = "select o from Order o " +
-        "where (o.startDate <= :finishDate and " +
-        "o.startDate >= :startDate) or " +
-        "(o.finishDate <= :finishDate and " +
-        "o.finishDate >= :startDate) or " +
-        "(o.startDate <= :startDate and o.finishDate >= :finishDate)")
 public class Order {
 
     @Id

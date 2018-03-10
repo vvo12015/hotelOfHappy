@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>YourApp</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<h1> HELLO WORLD </h1>  v
+<input type="text" id="data"/>
+<a id="post" href="#">POST</a>
+<a id="rooms" href="#">Show us rooms</a>
+<a id="rooms_category3" href="#">Show rooms of Senior Suite category</a>
+<a id="click-create-order" href="#">Create order</a>
+
+<form id="orderFromForm" action="/create-order" method="post" style="display: none;">
+        <label>Room number</label>
+        <input id="numberRoom" type="text" name="numberRoom" required="required"/>
+        <label>First name customer</label>
+        <input id="firstName" type="text" name="firstName" required="required"/>
+        <label>Last name customer</label>
+        <input id="lastName" type="text" name="lastName" required="required"/>
+        <label>Start date</label>
+        <input id="startDate" type="date" name="startDate" required="required"/>
+        <label>Finish date</label>
+        <input id="finishDate" type="date" name="finishDate" required="required"/>
+        <input id="prepareData" type="button" value="Prepare data">
+</form>
+
+<div id="container"></div>
+</body>
+
+<script>
+    $('#rooms').click(function () {
+        $.ajax({
+            type: "GET",
+            cache: false,
+            url: '/rooms',
+            data: "",
+            success: function (response) {
+                var html = "";
+                $.each(response.data, function (i) {
+                    html = html + response.data[i].number + "<br/>";
+                });
+                $('#container').html(html);
+            }
+        });
+    });
+    $('#rooms_category3').click(function () {
+        $.ajax({
+            type: "GET",
+            cache: false,
+            url: '/room-of-category/3',
+            data: "",
+            success: function (response) {
+                var html = "";
+                $.each(response.data[0].rooms, function (i) {
+                    html = html + response.data[0].rooms[i].number + "<br/>";
+                });
+                $('#container').html(html);
+            }
+        });
+    });
+    $('#click-create-order').click(function(){
+        if ($('#orderFromForm').attr("style") == "display: none;"){
+            $('#orderFromForm').show();
+        }else{
+            $('#orderFromForm').hide();
+        }
+    });
+    $('#prepareData').click(function(){
+        var data = {};
+        data["startDate"] = $("#startDate").val();
+        data["finishDate"] = $("#finishDate").val();
+        data["numberRoom"] = $("#numberRoom").val();
+        data["firstName"] = $("#firstName").val();
+        data["lastName"] = $("#lastName").val();
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/create-order",
+            data: JSON.stringify(data),
+            dataType: 'json',
+            timeout: 600000,
+            success: function(data){
+                $("#container").html("<h1>Ajax successfully</h1>");
+            },
+            error: function (e){
+                $("#container").html("<h1>Ajax error</h1>");
+            }
+        });
+    });
+</script>
+
+</html>

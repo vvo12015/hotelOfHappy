@@ -1,6 +1,8 @@
 package net.vrakin.services;
 
 import net.vrakin.model.Order;
+import net.vrakin.model.Room;
+import net.vrakin.model.User;
 import net.vrakin.repository.OrderRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
@@ -27,10 +29,13 @@ public class OrderService implements ParentService<Order, Long> {
         return this.orderRepository;
     }
 
-    public List<Order> findBusyOrders(Date startDate, Date finishDate){
-        List<Order> orderList = orderRepository.findBusyOrders(startDate, finishDate);
-
-        return orderList;
+    public Boolean validationOrderDates(Date startDate, Date finishDate, Room room){
+        List<Order> busyOrders = orderRepository.findBusyOrders(startDate,
+                finishDate, room);
+        return busyOrders.size() == 0;
     }
-    
+
+    public List<Order> findByUser(User user){
+        return orderRepository.findByUser(user);
+    }
 }

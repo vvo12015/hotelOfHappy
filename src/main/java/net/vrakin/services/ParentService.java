@@ -4,10 +4,16 @@ import net.vrakin.exceptions.ParentServiceException;
 import org.springframework.data.repository.CrudRepository;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public interface ParentService<T, ID extends Serializable> {
-    public default Iterable<T> findAll() {
-        return getRepository().findAll();
+    public default List<T> findAll() {
+        List<T> objects = new ArrayList<>();
+
+        getRepository().findAll().forEach(o -> objects.add(o));
+
+        return objects;
     }
 
     public default T get(ID id) {
