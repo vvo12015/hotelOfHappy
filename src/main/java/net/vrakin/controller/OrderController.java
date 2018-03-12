@@ -65,6 +65,11 @@ public class OrderController {
         order.setStartDate(startDate);
         order.setFinishDate(finishDate);
 
+        order.setServiceList(orderFromForm.getServices()
+                    .stream()
+                    .map(sn-> serviceService.get(Long.valueOf(sn)))
+                    .collect(Collectors.toList()));
+
         if (orderService.validationOrderDates(startDate,
                 finishDate,order.getRoom())){
             orderService.save(order);

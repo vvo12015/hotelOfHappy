@@ -2,6 +2,7 @@ package net.vrakin.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,11 +28,20 @@ public class Order {
     @Column(name = "FINISH_DATE")
     private Date finishDate;
 
-    public Order(User user, Room room, Date startDate, Date finishDate) {
+    @ManyToMany
+    @JoinTable(name = "ORDER_SERVICE",
+            joinColumns = @JoinColumn(name = "ORDER_REF"),
+            inverseJoinColumns = @JoinColumn(name = "SERVICE_REF"))
+    private List<Service> serviceList;
+
+    private Float price;
+
+    public Order(User user, Room room, Date startDate, Date finishDate, List<Service> serviceList) {
         this.user = user;
         this.room = room;
         this.startDate = startDate;
         this.finishDate = finishDate;
+        this.serviceList = serviceList;
     }
 
     public Order() {
@@ -75,6 +85,22 @@ public class Order {
 
     public void setFinishDate(Date finishDate) {
         this.finishDate = finishDate;
+    }
+
+    public List<Service> getServiceList() {
+        return serviceList;
+    }
+
+    public void setServiceList(List<Service> serviceList) {
+        this.serviceList = serviceList;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 
     @Override

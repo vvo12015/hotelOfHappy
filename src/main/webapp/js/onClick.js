@@ -63,10 +63,13 @@
                     var data = {};
                     data["startDate"] = $("#startDate").val();
                     data["finishDate"] = $("#finishDate").val();
-                    data["numberRoom"] = $("#numberRoom").val();
+                    data["numberRoom"] = $("#freeRooms").val();
+                    while ($("#firstName").val() == '') $("#firstName").val(prompt("Enter firstName"));
                     data["firstName"] = $("#firstName").val();
+                    while ($("#lastName").val() == '') $("#lastName").val(prompt("Enter lastName"));
                     data["lastName"] = $("#lastName").val();
                     data["totalSum"] = $("#totalSum").text();
+                    data["services"] = $("#services").val();
                     $.ajax({
                         type: "POST",
                         contentType: "application/json",

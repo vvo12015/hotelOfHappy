@@ -106,10 +106,33 @@
             <label id="info"></label>
 
             <div class="form-group">
-                <button id="checkRooms" class="btn btn-light">Check available rooms</button>
-                <button id="createOrder" class="btn btn-light">Create order</button>
+                <input type="button" id="checkRooms" value="Check available rooms"/>
+                <input type="button" id="createOrder" value="Create order"/>
             </div>
         </form>
+
+        <div id="your-orders">
+            <table id="orderTable" style="width:100%">
+                <tr>
+                    <th>Start date</th>
+                    <th>Finish date</th>
+                    <th>Room number</th>
+                    <th>Category name</th>
+                    <th>Services</th>
+                    <th>Price</th>
+                </tr>
+                <tr>
+                    <td>Jill</td>
+                    <td>Smith</td>
+                    <td>50</td>
+                </tr>
+                <tr>
+                    <td>Eve</td>
+                    <td>Jackson</td>
+                    <td>94</td>
+                </tr>
+            </table>
+        </div>
 
 <div id="white-place"></div>
 </body>

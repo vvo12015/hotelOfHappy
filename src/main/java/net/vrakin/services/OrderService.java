@@ -38,4 +38,10 @@ public class OrderService implements ParentService<Order, Long> {
     public List<Order> findByUser(User user){
         return orderRepository.findByUser(user);
     }
+
+    public Float getTotalPrice(Order order){
+        final Float[] sumServices = {0f};
+        order.getServiceList().stream().forEach(s-> sumServices[0] += s.getPrice());
+        return order.getPrice() + sumServices[0];
+    }
 }
