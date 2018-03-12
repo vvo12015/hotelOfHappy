@@ -2,6 +2,7 @@ package net.vrakin.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -20,6 +21,15 @@ public class Category {
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+    @Column(name = "IMAGE")
+    private String image;
+
+    @ManyToMany
+    @JoinTable(name = "CATEGORY_SERVICE",
+            joinColumns = @JoinColumn(name = "CATEGORY_REF"),
+            inverseJoinColumns = @JoinColumn(name = "SERVICE_REF"))
+    private List<Service> serviceList;
 
     public Long getCategoryId() {
         return categoryId;
@@ -45,9 +55,25 @@ public class Category {
         this.description = description;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public Category(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public List<Service> getServiceList() {
+        return serviceList;
+    }
+
+    public void setServiceList(List<Service> serviceList) {
+        this.serviceList = serviceList;
     }
 
     public Category() {

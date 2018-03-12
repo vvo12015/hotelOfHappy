@@ -1,6 +1,7 @@
 package net.vrakin.model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class OrderFromForm {
 
@@ -9,6 +10,7 @@ public class OrderFromForm {
     Date finishDate;
     String firstName;
     String lastName;
+    List<String> services;
 
     public OrderFromForm() {
     }
@@ -51,5 +53,13 @@ public class OrderFromForm {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<String> getServices() {
+        return services;
+    }
+
+    public void setServices(List<String> services) {
+        this.services = services;
     }
 }

@@ -25,12 +25,6 @@ public class Room {
     @Column(name = "PRICE")
     private Float price;
 
-    @ManyToMany
-    @JoinTable(name = "ROOM_SERVICE",
-    joinColumns = @JoinColumn(name = "ROOM_REF"),
-    inverseJoinColumns = @JoinColumn(name = "SERVICE_REF"))
-    private List<Service> serviceList;
-
     public Long getRoomId() {
         return roomId;
     }
@@ -47,11 +41,10 @@ public class Room {
         this.number = number;
     }
 
-    public Room(String number, Category category, Float price, List<Service> serviceList) {
+    public Room(String number, Category category, Float price) {
         this.number = number;
         this.category = category;
         this.price = price;
-        this.serviceList = serviceList;
     }
 
     public Room() {
@@ -88,13 +81,5 @@ public class Room {
 
     public void setPrice(Float price) {
         this.price = price;
-    }
-
-    public List<Service> getServiceList() {
-        return serviceList;
-    }
-
-    public void setServiceList(List<Service> serviceList) {
-        this.serviceList = serviceList;
     }
 }

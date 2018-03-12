@@ -89,4 +89,17 @@ public class OrderRepositoryTest {
 
         assertThat(orderList.size() == 0);
     }
+
+    @Test
+    public void testFindBusyOrdersEqualsStartFinishDate(){
+        Date startDate = Date.valueOf("2018-10-23");
+        Date finishDate = Date.valueOf("2018-10-25");
+
+        Room room = roomRepository.findOne(3L);
+
+        List<Order> orderList = orderRepository.findBusyOrders(startDate,
+                finishDate, room);
+
+        assertThat(orderList.size() == 1);
+    }
 }

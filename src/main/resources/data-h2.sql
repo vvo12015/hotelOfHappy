@@ -1,6 +1,6 @@
-INSERT INTO CATEGORIES (NAME, DESCRIPTION) VALUES ('Junior Suite', 'The Junior Suites are located high up in our towers; here you can enjoy a marvellous view. With separate bedroom and living room/lounge the Junior suite offers excellent comfort and most of what you might need.');
-INSERT INTO CATEGORIES (NAME, DESCRIPTION) VALUES ('Sky & Sky Family Room', 'Our Sky rooms are located high up in Tower 3. Here you’ll enjoy stunning views of the city. Of course the Sky rooms offer good comfort and most of what you might need.');
-INSERT INTO CATEGORIES (NAME, DESCRIPTION) VALUES ('Senior Suite', 'The Senior Suites are located on floor 18 or 21 with a marvellous view over the city. The Senior suites consists of a living room with dining area plus a bedroom. The bathroom has a jacuzzi.');
+INSERT INTO CATEGORIES (NAME, DESCRIPTION, IMAGE) VALUES ('Junior Suite', 'The Junior Suites are located high up in our towers; here you can enjoy a marvellous view. With separate bedroom and living room/lounge the Junior suite offers excellent comfort and most of what you might need.', 'Junior Suite.jpg');
+INSERT INTO CATEGORIES (NAME, DESCRIPTION, IMAGE) VALUES ('Sky & Sky Family Room', 'Our Sky rooms are located high up in Tower 3. Here you’ll enjoy stunning views of the city. Of course the Sky rooms offer good comfort and most of what you might need.', 'Senior Suite.jpg');
+INSERT INTO CATEGORIES (NAME, DESCRIPTION, IMAGE) VALUES ('Senior Suite', 'The Senior Suites are located on floor 18 or 21 with a marvellous view over the city. The Senior suites consists of a living room with dining area plus a bedroom. The bathroom has a jacuzzi.', 'Sky & Sky Family Room.jpg');
 
 INSERT INTO ROOM (NUMBER, CATEGORY_REF, PRICE) VALUES ('001', 1, 100.0);
 INSERT INTO ROOM (NUMBER, CATEGORY_REF, PRICE) VALUES ('002', 2, 200.0);
@@ -13,15 +13,15 @@ INSERT INTO ROOM (NUMBER, CATEGORY_REF, PRICE) VALUES ('008', 3, 300.0);
 INSERT INTO ROOM (NUMBER, CATEGORY_REF, PRICE) VALUES ('009', 3, 300.0);
 INSERT INTO ROOM (NUMBER, CATEGORY_REF, PRICE) VALUES ('010', 3, 300.0);
 
-INSERT INTO SERVICE (NAME, DESCRIPTION, PRICE) VALUES ('WI-FI', 'INTERNET SERVICE', 5.0);
-INSERT INTO SERVICE (NAME, DESCRIPTION, PRICE) VALUES ('TV', 'TV SERVICE', 0.0);
-INSERT INTO SERVICE (NAME, DESCRIPTION, PRICE) VALUES ('CLEAN', 'CLEAN OF ROOM', 20.0);
+INSERT INTO SERVICE (NAME, DESCRIPTION, PRICE) VALUES ('Laundry service', 'Every day 18.00-20.00', 20.0);
+INSERT INTO SERVICE (NAME, DESCRIPTION, PRICE) VALUES ('Extra bed', 'Extra bed', 30.0);
+INSERT INTO SERVICE (NAME, DESCRIPTION, PRICE) VALUES ('First marriage night', 'Preparing rooms for newlyweds', 200.0);
 
-INSERT INTO ROOM_SERVICE(ROOM_REF, SERVICE_REF) VALUES(1, 1);
-INSERT INTO ROOM_SERVICE(ROOM_REF, SERVICE_REF) VALUES(1, 2);
-INSERT INTO ROOM_SERVICE(ROOM_REF, SERVICE_REF) VALUES(1, 3);
-INSERT INTO ROOM_SERVICE(ROOM_REF, SERVICE_REF) VALUES(2, 2);
-INSERT INTO ROOM_SERVICE(ROOM_REF, SERVICE_REF) VALUES(2, 3);
+INSERT INTO CATEGORY_SERVICE(CATEGORY_REF, SERVICE_REF) VALUES(1, 1);
+INSERT INTO CATEGORY_SERVICE(CATEGORY_REF, SERVICE_REF) VALUES(1, 2);
+INSERT INTO CATEGORY_SERVICE(CATEGORY_REF, SERVICE_REF) VALUES(2, 2);
+INSERT INTO CATEGORY_SERVICE(CATEGORY_REF, SERVICE_REF) VALUES(3, 1);
+INSERT INTO CATEGORY_SERVICE(CATEGORY_REF, SERVICE_REF) VALUES(3, 3);
 
 INSERT INTO USER(FIRST_NAME, LAST_NAME) VALUES('VRAKIN', 'VALENTIN');
 INSERT INTO USER(FIRST_NAME, LAST_NAME) VALUES('VRAKINA', 'SOFIA');
