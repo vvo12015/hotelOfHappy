@@ -24,4 +24,5 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
                                @Param("room") Room room);
 
     List<Order> findByUser(User user);
+
 }
