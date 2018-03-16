@@ -1,7 +1,5 @@
 package net.vrakin.services;
 
-import net.vrakin.model.Category;
-import net.vrakin.repository.CategoryRepository;
 import net.vrakin.repository.ServiceRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,7 @@
 package net.vrakin.services;
 
 import net.vrakin.model.Category;
+import net.vrakin.model.Order;
 import net.vrakin.model.Room;
 import net.vrakin.repository.RoomRepository;
 import org.springframework.data.repository.CrudRepository;

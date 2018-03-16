@@ -4,6 +4,7 @@ import net.vrakin.model.Order;
 import net.vrakin.model.Room;
 import net.vrakin.model.User;
 import net.vrakin.repository.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
@@ -38,4 +39,5 @@ public class OrderService implements ParentService<Order, Long> {
     public List<Order> findByUser(User user){
         return orderRepository.findByUser(user);
     }
+
 }

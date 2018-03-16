@@ -34,6 +34,14 @@ public class OrderController {
         return Ajax.successResponse(new ArrayList<>(orderService.findAll()));
     }
 
+    @RequestMapping(value="/showOrdersOfUser", method = RequestMethod.POST)
+    public Map<String, Object> showOrdersOfUser(@RequestBody User user){
+        return
+                Ajax.successResponse(orderService.findByUser(user)
+                        .stream()
+                        .map(OrderFromForm::new)
+                        .collect(Collectors.toList()));
+    }
     @RequestMapping(value="/create-order", method = RequestMethod.POST)
     public Map<String, Object> createOrder(@RequestBody OrderFromForm orderFromForm){
         Order order = new Order();
@@ -65,12 +73,20 @@ public class OrderController {
         order.setStartDate(startDate);
         order.setFinishDate(finishDate);
 
+        order.setServiceList(orderFromForm.getServices()
+                    .stream()
+                    .map(sn-> serviceService.get(Long.valueOf(sn)))
+                    .collect(Collectors.toList()));
+
         if (orderService.validationOrderDates(startDate,
                 finishDate,order.getRoom())){
             orderService.save(order);
 
             return
-                    Ajax.successResponse(orderService.findByUser(order.getUser()));
+                    Ajax.successResponse(orderService.findByUser(order.getUser())
+                            .stream()
+                            .map(OrderFromForm::new)
+                            .collect(Collectors.toList()));
         }else {
 
             Map<String, Object> data = getFreeRoomsCategoriesList(order.getRoom().getCategory(), startDate, finishDate);

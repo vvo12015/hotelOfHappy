@@ -7,6 +7,14 @@
     padding-left: 10px;
 }
 
+#divTable{
+    position: absolute;
+    top: 100px;
+    left: 500px;
+    width: 300px;
+    border-radius: 5px;
+}
+
 #click-create-order{
     margin-left: 10px;
 }

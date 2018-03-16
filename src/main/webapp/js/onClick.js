@@ -4,6 +4,43 @@
                 $(selectName).append($("<option></option>").attr("value", val).text(val));
             });
     };
+    function showOrdersOfUser(user){
+        $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/showOrdersOfUser",
+                data: JSON.stringify(user),
+                dataType: 'json',
+                timeout: 600000,
+                success: function(response){
+                    $.each(response.data, function(i){
+                        var tdStartDate = $("<td>");
+                        tdStartDate.text(response.data[i].startDate);
+                        var tdFinishDate = $("<td>");
+                        tdFinishDate.text(response.data[i].finishDate);
+                        var tdCategory = $("<td>");
+                        tdCategory.text(response.data[i].categoryName);
+                        var valServices = "";
+                        $.each(response.data[i].serviceList, function(j){
+                            valServices += response
+                            .data[i].serviceList[j] + "; ";
+                        })
+                        var tdPrice = $("<td>");
+                        tdPrice.text(response.data[i].totalPrice);
+                        var tr = $("<tr>");
+                        tr.append(tdStartDate);
+                        tr.append(tdFinishDate);
+                        tr.append(tdCategory);
+                        tr.append(valServices);
+                        $("#orderTable").append(tr);
+                        $("#divTable").show();
+                    })
+                },
+                error: function (e){
+                    $("#container").html("<h1>Ajax error</h1>");
+                }
+        });
+    }
     function populateListRoomsAndCategories(response){
         $("option").remove();
         $.each(response.data.freeRoomOfCategory, function(i, val){
@@ -63,9 +100,16 @@
                     var data = {};
                     data["startDate"] = $("#startDate").val();
                     data["finishDate"] = $("#finishDate").val();
-                    data["numberRoom"] = $("#numberRoom").val();
+                    data["numberRoom"] = $("#freeRooms").val();
+                    while ($("#firstName").val() == ''){
+                        $("#firstName").val(prompt('Enter firstName'));
+                    }
                     data["firstName"] = $("#firstName").val();
+                    while ($("#lastName").val() == ''){
+                        $("#lastName").val(prompt('Enter lastName'));
+                    }
                     data["lastName"] = $("#lastName").val();
+                    data["services"] = $("#services").val();
                     data["totalSum"] = $("#totalSum").text();
                     $.ajax({
                         type: "POST",
@@ -75,7 +119,33 @@
                         dataType: 'json',
                         timeout: 600000,
                         success: function(response){
-                            $("#info").text("Your booking successfully")
+                            if (response.data.freeRoomOfCategory == null){
+                            $.each(response.data, function(i){
+                                var tdStartDate = $("<td>");
+                                tdStartDate.text(response.data[i].startDate);
+                                var tdFinishDate = $("<td>");
+                                tdFinishDate.text(response.data[i].finishDate);
+                                var tdCategory = $("<td>");
+                                tdCategory.text(response.data[i].categoryName);
+                                var valServices = "";
+                                $.each(response.data[i].serviceList, function(j){
+                                    valServices += response
+                                    .data[i].serviceList[j] + "; ";
+                                })
+                                var tdPrice = $("<td>");
+                                tdPrice.text(response.data[i].totalPrice);
+                                var tr = $("<tr>");
+                                tr.append(tdStartDate);
+                                tr.append(tdFinishDate);
+                                tr.append(tdCategory);
+                                tr.append(valServices);
+                                $("#orderTable").append(tr);
+                                $("#divTable").show();
+                            })
+                            }else{
+                                populateSelect(response.data.freeRoomOfCategory, "freeRooms");
+                                populateSelect(response.data.allFreeCategories, "freeCategories");
+                            }
                         },
                         error: function (e){
                             $("#container").html("<h1>Ajax error</h1>");
@@ -130,5 +200,25 @@
                     $("#container").html("<h1>Ajax error</h1>");
                 }
             });
+        });
+        $("#your-orders").click(function(){
+            if ($("#divTable").attr("style") == "display: none;"){
+                var  user = {};
+                 while ($("#firstName").val() == ''){
+                    $("#firstName").val(prompt('Enter firstName'));
+                 }
+                user["firstName"] = $("firstName").val();
+                while ($("#lastName").val() == ''){
+                    $("#lastName").val(prompt('Enter lastName'));
+                }
+                user["lastName"] = $("lastName").val();
+                showOrdersOfUser(user);
+                $("#divTable").show();
+                $("#divTable").text = "Hide your orders";
+            }else{
+                $("#divTable").hide();
+                $("#divTable").text = "Show your orders";
+            }
+
         });
     });

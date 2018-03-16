@@ -2,17 +2,34 @@ package net.vrakin.model;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrderFromForm {
 
-    String numberRoom;
-    Date startDate;
-    Date finishDate;
-    String firstName;
-    String lastName;
-    List<String> services;
+    private String numberRoom;
+    private Date startDate;
+    private Date finishDate;
+    private String firstName;
+    private String lastName;
+    private List<String> services;
+    private String totalPrice;
+    private String categoryName;
 
     public OrderFromForm() {
+    }
+
+    public OrderFromForm(Order order){
+        this.firstName = order.getUser().getFirstName();
+        this.lastName = order.getUser().getLastName();
+        this.startDate = order.getStartDate();
+        this.finishDate = order.getFinishDate();
+        this.categoryName = order.getRoom().getCategory().getName();
+        this.services = order.getServiceList()
+                .stream()
+                .map(Service::getName)
+                .collect(Collectors.toList());
+        this.numberRoom = order.getRoom().getNumber();
+        this.totalPrice = "$" + order.getPrice().toString();
     }
 
     public String getNumberRoom() {
